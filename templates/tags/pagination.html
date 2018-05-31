@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+
+{% if estates.has_other_pages %}
+    <div class="row pagination-div" data-estate-type="{{ estate_type }}" data-current-page="{{ estates.number }}">
+        <div class="inline-block col-xs-12">
+            <ul class="pagination">
+                {% if estates.has_previous %}
+                    <li><a class="item-page" href="javascript:void(0)"
+                           onclick="Layout.pageNextPrevious({{ estates.previous_page_number }})">&laquo;</a>
+                    </li>
+                {% else %}
+                    <li class="disabled"><a href="javascript:void(0)">&laquo;</a></li>
+                {% endif %}
+                {% if page_back_limit > 1 %}
+                    <li><a class="item-page" href="javascript:void(0)"
+                           onclick="Layout.pageNextPrevious(1)">1</a>
+                    </li>
+                    <li class="disabled"><a href="javascript:void(0)">...</a></li>
+                {% endif %}
+                {% for i in estates.paginator.page_range %}
+                    {% if estates.number == i %}
+                        <li class="active"><a class="item-page" href="javascript:void(0)">{{ i }}</a>
+                        </li>
+                    {% elif i > page_back_limit and i < page_forward_limit %}
+                        <li><a class="item-page" href="javascript:void(0)"
+                               onclick="Layout.pageNextPrevious({{ i }})">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_forward_limit < estates.paginator.num_pages %}
+                    <li class="disabled"><a href="javascript:void(0)">...</a></li>
+                    <li><a class="item-page" class="item-page" href="javascript:void(0)"
+                           onclick="Layout.pageNextPrevious({{ estates.paginator.num_pages }})">{{ estates.paginator.num_pages }}</a>
+                    </li>
+                {% endif %}
+                {% if estates.has_next %}
+                    <li><a class="item-page" href="javascript:void(0)"
+                           onclick="Layout.pageNextPrevious({{ estates.next_page_number }})">&raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="disabled"><a href="javascript:void(0)">&raquo;</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endif %}

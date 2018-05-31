@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load estate_tag %}
+{% load marketing_tag %}
+{% load other_tag %}
+{% load l10n %}
+
+{% block body %}
+    {% header_page 'Ипотечный калькулятор' %}
+    <!-- Calculator -->
+    <div class="container padding-l-r-5 margin-t-10">
+        <div class="row">
+            <div class="col-xs-12 col-md-3 margin-t-10 calc-col" data-cost="{{ cost }}" data-rate="{{ rate }}">
+                {% calculator %}
+            </div>
+            <div class="col-xs-12 col-md-9">
+                <div class="row-full-width">
+                    <div class="col-xs-12">
+                        {% partner_program_table %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            CalculationMortgage.init();
+        });
+    </script>
+    <!-- End Calculator -->
+{% endblock %}

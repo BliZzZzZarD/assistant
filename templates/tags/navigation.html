@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+
+{% if pages %}
+    {% for page in pages %}
+        <li><a class="nav-a" href="/page/{{ page.slug }}">{{ page.name }}</a></li>
+    {% endfor %}
+{% endif %}
+
+

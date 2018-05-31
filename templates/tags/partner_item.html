@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+{% load l10n %}
+{% load thumbnail %}
+
+<a href="{{ partner.slug }}">
+    <div class="padding-b-5">
+        <div>
+            <img src="
+                {% if partner.picture %}
+                    {% thumbnail partner.picture 200x200 crop %}
+                {% else %}
+                    {% static "images/other/partner.jpg" %}
+                {% endif %}
+                    " class="img-responsive full-width" alt="Estate"/>
+        </div>
+    </div>
+</a>
+
+

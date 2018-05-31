@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+
+{% if banner_url %}
+<div class="container content-partner">
+    <div class="row">
+        <img class="full-width img-responsive"
+             src="{{ banner_url }}"
+             alt="Image Marketing"/>
+    </div>
+</div>
+{% endif %}
+
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+{% load l10n %}
+{% load thumbnail %}
+{% load marketing_tag %}
+
+<!-- Partner program -->
+<div class="container padding-t-20 padding-l-r-5">
+    <div class="row-full-width">
+        <div class="col-xs-12 group-header">
+            <div>
+                <h2><a>Партнерские программы:</a></h2>
+            </div>
+        </div>
+    </div>
+    <div class="row-full-width partner-program-header">
+        <div class="col-sm-1"></div>
+        <div class="col-xs-2">
+            <p>Название Банка</p>
+        </div>
+        <div class="col-xs-2">
+            <p>Название программы</p>
+        </div>
+        <div class="col-xs-2">
+            <p>Процентная ставка, % год.</p>
+        </div>
+        <div class="col-xs-2">
+            <p>Срок ипотеки, лет</p>
+        </div>
+        <div class="col-xs-2">
+            <p>Платеж, руб/мес.</p>
+        </div>
+        <div class="col-xs-2 col-sm-1">
+            <p>Подробнее</p>
+        </div>
+    </div>
+    {% for program in partner_program_list %}
+        <div class="row-full-width partner-program flex">
+            <div class="col-sm-1 vertical-center col-invisible">
+                <div class="padding-5">
+                    <a href="{{ program.partner.url }}">
+                        <img src="{% thumbnail program.partner.picture 200x200 crop %}"
+                             class="img-responsive full-width" alt="Partner"/>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <p>{{ program.partner }}</p>
+            </div>
+            <div class="col-xs-2">
+                <p>{{ program.name }}</p>
+            </div>
+            <div class="col-xs-2">
+                <p>{{ program.rate }}</p>
+            </div>
+            <div class="col-xs-2">
+                <p>{{ program.term }}</p>
+            </div>
+            <div class="col-xs-2">
+                <a class="mortgage"
+                   href="javascript:void(0)"
+                   onclick="CalculationMortgage.clickOnMortgageCost()"
+                   data-toggle="tooltip"
+                   title="Не является публичной офертой. Условный расчет по самой выгодной программе"
+                >
+                    <p>{{ program.price }}</p>
+                </a>
+            </div>
+            <div class="col-xs-2 col-sm-1">
+                {% if program.description %}
+                    <a href="{% url 'show_program' program.slug %}"><p>Подробнее</p></a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<!-- End partner program -->

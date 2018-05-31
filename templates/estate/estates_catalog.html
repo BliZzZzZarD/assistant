@@ -1,0 +1,46 @@
+{% load staticfiles %}
+{% load thumbnail %}
+{% load estate_tag %}
+{% load other_tag %}
+{% load l10n %}
+
+{% if estates %}
+    {% if  col_row_view == "0" %}
+        <div class="row margin-t-15">
+            {% for estate in estates %}
+                <div class="col-xs-6 col-lg-4 margin-b-30">
+                     {% if estate.room %}
+                        {% estate_col estate estate.caption %}
+                    {% elif estate.construction %}
+                        {% estate_col estate estate.construction %}
+                    {% elif estate.appointment %}
+                        {% estate_col estate estate.appointment %}
+                    {% else %}
+                        {% estate_col estate estate.appointmentLand %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row margin-t-25">
+            <div class="col-xs-12">
+                {% for estate in estates %}
+                    {% if estate.room %}
+                        {% estate_row estate estate.caption %}
+                    {% elif estate.construction %}
+                        {% estate_row estate estate.construction %}
+                    {% elif estate.appointment %}
+                        {% estate_row estate estate.appointment %}
+                    {% else %}
+                        {% estate_row estate estate.appointmentLand %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% pagination estates page_back_limit page_forward_limit estate_type %}
+{% else %}
+    <div class="row margin-t-15 margin-b-20 margin-l-5">
+        <p>Нет объектов, соответсвующих вашему запросу. Попробуйте изменить условия</p>
+    </div>
+{% endif %}

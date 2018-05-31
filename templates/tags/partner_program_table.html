@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+{% load l10n %}
+{% load thumbnail %}
+
+<div class="row partner-program-header">
+    <div class="col-sm-1"></div>
+    <div class="col-xs-3">
+        <p>Название Банка</p>
+    </div>
+    <div class="col-xs-3">
+        <p>Название программы</p>
+    </div>
+    <div class="col-xs-3">
+        <p>Процентная ставка, % год.</p>
+    </div>
+    <div class="col-xs-3 col-sm-2">
+        <p>Подробнее</p>
+    </div>
+</div>
+{% for program in partner_program_list %}
+    <div class="row partner-program flex">
+        <div class="col-sm-1 vertical-center col-invisible">
+            <div class="padding-5">
+                <a href="{{ program.partner.url }}">
+                    <img src="{% thumbnail program.partner.picture 200x200 crop %}"
+                         class="img-responsive full-width" alt="Partner"/>
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <p>{{ program.partner }}</p>
+        </div>
+        <div class="col-xs-3">
+            <p>{{ program.name }}</p>
+        </div>
+        <div class="col-xs-3">
+            <p>{{ program.rate }}</p>
+        </div>
+        <div class="col-xs-3 col-sm-2">
+            {% if program.description %}
+                <a href="{% url 'show_program' program.slug %}"><p>Подробнее</p></a>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
+

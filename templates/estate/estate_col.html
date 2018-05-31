@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+{% load l10n %}
+{% load estate_tag %}
+{% load thumbnail %}
+
+<a href="{% url 'show_estate' estate.slug %}">
+    <div class="estate-col estate-item">
+        <div class="estate-col-img-box">
+            <img src="
+                {% if estate.album and estate.album.image %}
+                    {% thumbnail estate.album.image 200x200 crop %}
+                {% else %}
+                    {% if estate.room %}
+                        {% static "images/estates/apartment.jpg" %}
+                    {% elif estate.construction %}
+                        {% static "images/estates/residence.jpg" %}
+                    {% elif estate.appointment %}
+                        {% static "images/estates/commerce.jpg" %}
+                    {% else %}
+                        {% static "images/estates/land.jpg" %}
+                    {% endif %}
+                {% endif %}
+            " class="img-responsive full-width" alt="Estate"/>
+            <div class="estate-common-cost" data-toggle="tooltip" title="Не является публичной офертой">
+                {% localize on %}
+                    <h6>{{ estate.cost }} руб.</h6>
+                {% endlocalize %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 estate-col-name">
+                <h5>{{ caption }}</h5>
+            </div>
+        </div>
+        <div class="row padding-l-r-5">
+            <div class="col-xs-12 estate-col-address">
+                <p>
+                    <i class="fa fa-map-marker margin-r-5"></i>
+                    {{ estate.city }}{% if not estate.appointmentLand %}, {{ estate.street }}, {{ estate.number }}
+                        {% if estate.literal %},
+                            {{ estate.literal }}
+                        {% endif %}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        {% if estate.room %}
+            {% apartment_col estate %}
+        {% elif estate.construction %}
+            {% residence_col estate %}
+        {% elif estate.appointment %}
+            {% commerce_col estate %}
+        {% else %}
+            {% land_col estate %}
+        {% endif %}
+    </div>
+</a>
+

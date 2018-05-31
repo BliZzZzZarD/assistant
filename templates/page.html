@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+
+{% block body %}
+    <div class="parallax-window" data-parallax="scroll">
+        <div class="parallax-content container">
+            <h1 class="page-caption"> {{ page.name }} </h1>
+        </div>
+    </div>
+     <!-- AdditionalPage -->
+    {% if page %}
+        <div class="templatemo-common-template">
+            <div class="container">
+                <div class="row">
+                    <p>{% autoescape off %}{{ page.textPage }}{% endautoescape %}</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <!-- End AdditionalPage -->
+{% endblock %}

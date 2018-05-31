@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+{% load l10n %}
+{% load estate_tag %}
+
+<div class="row margin-t-5">
+    <div class="col-xs-12">
+        <div class="estate-border-box">
+            {% if estate.price %}
+                {% price estate.cost estate.areaCommon %}
+            {% endif %}
+            {% if estate.showCostService %}
+                {% cost_service estate.costService  %}
+            {% endif %}
+            {% if estate.mortgagePrice %}
+                {% mortgage_price estate.cost %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="row margin-t-15">
+    <div class="col-xs-12">
+        <table>
+            <tr>
+                <th>
+                    <div class="info-estate" data-toggle="tooltip" title="Количество комнат">
+                        <img src="{% static '/images/estates/room.png' %}" class="img-responsive">
+                    </div>
+                </th>
+                <th>
+                    <div class="info-estate" data-toggle="tooltip" title="Этажность">
+                        <img src="{% static '/images/estates/floor.png' %}" class="img-responsive">
+                    </div>
+                </th>
+                <th>
+                    <div class="info-estate" data-toggle="tooltip" title="Площадь">
+                        <img src="{% static '/images/estates/area.png' %}" class="img-responsive">
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <div class="flex info-estate">
+                        <p>{{ estate.room }}</p>
+                    </div>
+                </th>
+                <th>
+                    <div class="flex info-estate">
+                        {% if estate.floor %}
+                            <p>{{ estate.floor }}/{{ estate.floors }}</p>
+                        {% else %}
+                            <p>{{ estate.floors }}</p>
+                        {% endif %}
+                    </div>
+                </th>
+                <th>
+                    <div class="flex info-estate">
+                        <p>{{ estate.areaCommon }}</p>
+                    </div>
+                </th>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row margin-t-15">
+    <div class="col-xs-12">
+        <div class="estate-border-box">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="float-left">
+                        <p>Жилая площадь:</p>
+                    </div>
+                    <div class="float-right">
+                        <p>
+                            {% if estate.areaLiving %}
+                                {{ estate.areaLiving }} м2
+                            {% else %}
+                                -
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                <div class="col-xs-12">
+                    <div class="float-left">
+                        <p>Год постройки:</p>
+                    </div>
+                    <div class="float-right">
+                        <p>
+                            {% if estate.year %}
+                                {{ estate.year|stringformat:"s" }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                <div class="col-xs-12">
+                    <div class="float-left">
+                        <p>Тип здания:</p>
+                    </div>
+                    <div class="float-right">
+                        <p>{{ estate.construction }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                <div class="col-xs-12">
+                    <div class="float-left">
+                        <p>Тип ремонта:</p>
+                    </div>
+                    <div class="float-right">
+                        <p>{{ estate.repair }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                <div class="col-xs-12">
+                    <div class="float-left">
+                        <p>Тип кухни:</p>
+                    </div>
+                    <div class="float-right">
+                        <p>
+                            {% if estate.typeKitchen %}
+                                {{ estate.typeKitchen }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                <div class="col-xs-12">
+                    <div class="float-left">
+                        <p>Высота потолков:</p>
+                    </div>
+                    <div class="float-right">
+                        <p>
+                            {% if estate.height  %}
+                                {{ estate.height }} м
+                            {% else %}
+                                -
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row margin-t-15">
+    <div class="col-xs-12">
+        <div class="estate-border-box">
+            <div class="row flex">
+                <div class="col-xs-10">
+                    <p>Первичное жилье:</p>
+                </div>
+                <div class="col-xs-2">
+                    {% if estate.new %}
+                        <img src="{% static '/images/estates/true.png' %}" class="img-responsive full-width">
+                    {% else %}
+                        <img src="{% static '/images/estates/false.png' %}" class="img-responsive full-width">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row margin-t-5 flex">
+                <div class="col-xs-10">
+                    <p>Студия:</p>
+                </div>
+                <div class="col-xs-2">
+                    {% if estate.isStudio %}
+                        <img src="{% static '/images/estates/true.png' %}" class="img-responsive full-width">
+                    {% else %}
+                        <img src="{% static '/images/estates/false.png' %}" class="img-responsive full-width">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row margin-t-5 flex">
+                <div class="col-xs-10">
+                    <p>Мансарда:</p>
+                </div>
+                <div class="col-xs-2">
+                    {% if estate.isPenthouse %}
+                        <img src="{% static '/images/estates/true.png' %}" class="img-responsive full-width">
+                    {% else %}
+                        <img src="{% static '/images/estates/false.png' %}" class="img-responsive full-width">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row margin-t-5 flex">
+                <div class="col-xs-10">
+                    <p>Раздельный санузел:</p>
+                </div>
+                <div class="col-xs-2">
+                    {% if estate.wc %}
+                        <img src="{% static '/images/estates/true.png' %}" class="img-responsive full-width">
+                    {% else %}
+                        <img src="{% static '/images/estates/false.png' %}" class="img-responsive full-width">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

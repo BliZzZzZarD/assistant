@@ -1,0 +1,159 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load estate_tag %}
+{% load marketing_tag %}
+{% load other_tag %}
+{% load l10n %}
+
+{% block body %}
+    {% header_page caption %}
+    <!-- Helper -->
+    {% article_search %}
+    <!-- End Helper -->
+    <!-- Estate -->
+    <div class="container padding-l-r-5">
+        <div class="row address-row">
+            <p><i class="fa fa-map-marker margin-r-5"></i>
+                <a href="javascript:void(0)"
+                   onclick="Layout.findEstateByAddress('{{ estate_type }}', {{ estate.city.pk }})">
+                    {{ estate.city }}
+                </a>
+                {% if not estate.appointmentLand %}
+                    >
+                    <a href="javascript:void(0)"
+                       onclick="Layout.findEstateByAddress('{{ estate_type }}', {{ estate.city.pk }}, {{ estate.street.pk }})">
+                        {{ estate.street }}
+                    </a>
+                    >
+                    {{ estate.number }}
+                {% endif %}
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-xs-7 col-ms-8 col-md-8 col-lg-9">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul id="estateTab" class="nav nav-tabs">
+                            <li class="active"><a href="#photo">Фотографии</a></li>
+                            <li><a href="#map">Карта</a></li>
+                        </ul>
+                        <div class="tab-content border-tab-content">
+                            <div id="photo" class="tab-pane fade in active">
+                                {% if estate.album %}
+                                    <div id="gallery" style="display:none;">
+                                        {% for photo in estate.album.photo_set.all %}
+                                            <a href="{{ MEDIA_URL }}{{ photo.picture }}">
+                                                <img src="{% thumbnail photo.picture 150x100 crop %}"
+                                                     alt="{{ photo.name }}"/>
+                                            </a>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <img src="{% static "images/estates/no_photo.jpg" %}"
+                                         class="img-responsive full-width" alt="Estate"/>
+                                {% endif %}
+                            </div>
+                            <div id="map" class="tab-pane fade">
+                                {% if estate.geolocation %}
+                                    <div class="estate-map" id="map-estate-canvas"
+                                         data-geolocation={{ estate.geolocation }}></div>
+                                {% else %}
+                                    <img src="{% static "images/estates/no_geo.jpg" %}"
+                                         class="img-responsive full-width" alt="Estate"/>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if estate.description %}
+                    <div class="row estate-description">
+                        <div class="col-xs-12">
+                            <h3>{{ estate.name }}:</h3>
+                            <p>{% autoescape off %}{{ estate.description }}{% endautoescape %}</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-xs-5 col-ms-4 col-md-4 col-lg-3 estate-description">
+                <div class="row">
+                    <div class="col-xs-12 estate-col-name" data-toggle="tooltip" title="Не является публичной офертой">
+                        <h4 class="estate-cost">СТОИМОСТЬ: {% localize on %}{{ estate.cost }}{% endlocalize %} руб.</h4>
+                    </div>
+                </div>
+                <div class="row margin-t-5 margin-b-15">
+                    <div class="col-xs-12">
+                        <div class="estate-border-box">
+                            <div class="row padding-l-r-5">
+                                <div class="col-xs-12 estate-col-info">
+                                    <div class="float-left">
+                                        <p>Код объекта:</p>
+                                    </div>
+                                    <div class="float-right">
+                                        <p>{{ estate.article }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if estate.room %}
+                    {% apartment_info_block estate %}
+                {% elif estate.construction %}
+                    {% residence_info_block estate %}
+                {% elif estate.appointment %}
+                    {% commerce_info_block estate %}
+                {% else %}
+                    {% land_info_block estate %}
+                {% endif %}
+                <div class="row margin-t-15">
+                    <div class="col-xs-12">
+                        <div class="estate-manager-box">
+                            {% if estate.manager and estate.showManager %}
+                                <div class="row">
+                                    <div class="col-xs-12 flex">
+                                        <h6>Об этом объекте знает все:</h6>
+                                    </div>
+                                </div>
+                                <div class="row margin-t-15">
+                                    <div class="col-xs-12 flex">
+                                        <h3>{{ estate.manager }}</h3>
+                                    </div>
+                                </div>
+                                <div class="row margin-t-5">
+                                    <div class="col-xs-12 flex">
+                                        <h3>{{ estate.manager.phone }}</h3>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="row margin-t-5">
+                                    <div class="col-xs-12 flex">
+                                        <h3>{{ default_phone }}</h3>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-xs-12 flex">
+                                    <img src="{% static "images/estates/phone.png" %}"
+                                         class="img-responsive" alt="Phone"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Estate -->
+    <!-- Helper -->
+    {% wait_call %}
+    <!-- End Helper -->
+    {% if  estate.room or estate.construction %}
+        {% partner_program_estate_page estate.cost %}
+    {% endif %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            LayoutEstate.init();
+        });
+    </script>
+{% endblock %}

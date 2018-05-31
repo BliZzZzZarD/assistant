@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+{% load l10n %}
+{% load thumbnail %}
+{% load marketing_tag %}
+
+<div class="container padding-t-20">
+    <div class="row">
+        <div class="col-xs-12 group-header">
+            <div>
+                <h2><a>Партнерские программы:</a></h2>
+            </div>
+        </div>
+    </div>
+    {% partner_program_table partner %}
+</div>

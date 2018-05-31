@@ -1,0 +1,57 @@
+{% load staticfiles %}
+{% load thumbnail %}
+{% load estate_tag %}
+{% load other_tag %}
+{% load l10n %}
+
+<div class="row padding-t-5 padding-l-r-5">
+    <div class="col-xs-12 estate-row-info">
+        <div class="float-left">
+            <p>Год постройки:</p>
+        </div>
+        <div class="float-right">
+            <p>
+                {% if apartment.year %}
+                    {{ apartment.year|stringformat:"s" }}
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row padding-t-5 padding-l-r-5">
+    <div class="col-xs-12 estate-row-info">
+        <div class="float-left">
+            <p>Площадь:</p>
+        </div>
+        <div class="float-right">
+            <p>{{ apartment.areaCommon }} м2</p>
+        </div>
+    </div>
+</div>
+<div class="row padding-5">
+    <div class="col-xs-12 estate-row-info">
+        {% if apartment.floor %}
+            <div class="float-left">
+                <p>Этаж/Этажность:</p>
+            </div>
+            <div class="float-right">
+                <p>{{ apartment.floor }}/{{ apartment.floors }}</p>
+            </div>
+        {% else %}
+            <div class="float-left">
+                <p>Этажность:</p>
+            </div>
+            <div class="float-right">
+                <p>{{ apartment.floors }}</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% if apartment.price %}
+    {% price_row apartment.cost apartment.areaCommon %}
+{% endif %}
+{% if apartment.mortgagePrice %}
+    {% mortgage_price_row apartment.cost %}
+{% endif %}

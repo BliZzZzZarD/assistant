@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+
+<div class="content-20 call-back-mini-container shadow-base">
+    <div class="container padding-l-r-5 ">
+        <div class="row-full-width form-call-back-mini flex">
+            <div class="col-xs-8 col-md-8 col-lg-8">
+                <h4 class="form-call-back-mini">{{ text_message }}</h4>
+            </div>
+            <div class="col-xs-4 col-md-4 col-lg-4">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-xs-9 padding-t-b-5">
+                        <input id="callBackMiniFormPhone" type="text" class="form-control"
+                               placeholder="Ваш телефон..." maxlength="40" required name='phone'/>
+                    </div>
+                    <div class="col-xs-3 padding-t-b-5 padding-l-5">
+                        <a href="javascript:void(0)" class="btn btn-minimal"
+                           onclick="CallBackForm.sendWaitMail()">
+                            <i class="fa fa-envelope fa-fw"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

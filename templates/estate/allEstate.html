@@ -1,0 +1,195 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load l10n %}
+{% load estate_tag %}
+{% load marketing_tag %}
+{% load other_tag %}
+
+{% block body %}
+    {% header_page "Каталог недвижимости" %}
+    <!-- Helper -->
+    {% article_search %}
+    <!-- End Helper -->
+    <!-- ApartmentEstate -->
+    {% if apartment_estate_list %}
+        <div class="container padding-l-r-5 margin-b-50">
+            <div class="row">
+                <div class="col-xs-12 group-header">
+                    <div>
+                        <h2><a href={% url 'show_apartments' %}>Квартиры:</a></h2>
+                        <p class="tags">
+                            <a href="javascript:void(0)" onclick="LayoutApartment.showApartmentByRoom(true, null, null)">
+                                Комната
+                            </a>
+                        </p>
+                        <p class="tags">
+                            <a href="javascript:void(0)" onclick="LayoutApartment.showApartmentByRoom(null, 1, null)">
+                                1-комнатная
+                            </a>
+                        </p>
+                        <p class="tags">
+                            <a href="javascript:void(0)" onclick="LayoutApartment.showApartmentByRoom(null, 2, null)">
+                                2-комнатная
+                            </a>
+                        </p>
+                        <p class="tags">
+                            <a href="javascript:void(0)" onclick="LayoutApartment.showApartmentByRoom(null, 3, null)">
+                                3-комнатная
+                            </a>
+                        </p>
+                        <p class="tags">
+                            <a href="javascript:void(0)" onclick="LayoutApartment.showApartmentByRoom(null, 4, null)">
+                                4-комнатная
+                            </a>
+                        </p>
+                        <p class="tags">
+                            <a href="javascript:void(0)" onclick="LayoutApartment.showApartmentByRoom(null, null, true)">
+                                5-комнатная
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                <div class="col-xs-12">
+                    <div>
+                        <p>Случайный выбор:</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                {% for apartment in apartment_estate_list %}
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 margin-b-30">
+                        {% estate_col apartment apartment.caption %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <!-- End ApartmentEstate -->
+    <!-- Helper -->
+    {% wait_call %}
+    <!-- End Helper -->
+    <!-- ResidenceEstate -->
+    {% if residence_estate_list %}
+        <div class="container content-20 padding-l-r-5">
+            <div class="row">
+                <div class="col-xs-12 group-header">
+                    <div>
+                        <h2><a href="{% url 'show_residences' %}">Частные дома:</a></h2>
+                        {% for construction in constructions %}
+                            <p class="tags">
+                                <a href="javascript:void(0)" onclick="LayoutResidence.showResidenceByConstruction({{ construction.pk }})">
+                                    {{ construction.name }}
+                                </a>
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                <div class="col-xs-12">
+                    <div>
+                        <p>Случайный выбор:</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                {% for residence in residence_estate_list %}
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 margin-t-5">
+                        {% estate_col residence residence.construction %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <!-- End ResidenceEstate -->
+    <!-- Banner -->
+    {% horizontal_banner %}
+    <!-- End Banner -->
+    <!-- CommerceEstate -->
+    {% if commerce_estates_list %}
+        <div class="container content-20 padding-l-r-5">
+            <div class="row">
+                <div class="col-xs-12 group-header">
+                    <div>
+                        <h2><a href="{% url 'show_commerces' %}">Коммерческая недвижимость:</a></h2>
+                        {% for appointment in appointments %}
+                            <p class="tags">
+                                <a href="javascript:void(0)" onclick="LayoutCommerce.showCommerceByAppointment({{ appointment.pk }})">
+                                    {{ appointment.name }}
+                                </a>
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                <div class="col-xs-12">
+                    <div>
+                        <p>Случайный выбор:</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                {% for commerce in commerce_estates_list %}
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 margin-t-5">
+                        {% estate_col commerce commerce.appointment %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <!-- End CommerceEstate -->
+    <!-- Marketing -->
+    {% if partner_1 %}
+        {% partner_horizontal partner_1 media_url %}
+    {% endif %}
+    <!-- End Marketing -->
+    <!-- LandEstate -->
+    {% if land_estate_list %}
+        <div class="container content-20 padding-l-r-5">
+            <div class="row">
+                <div class="col-xs-12 group-header">
+                    <div>
+                        <h2><a href="{% url 'show_lands' %}">Земельные участки:</a></h2>
+                        {% for appointment in land_appointments %}
+                            <p class="tags">
+                                <a href="javascript:void(0)" onclick="LayoutLand.showLandByAppointment({{ appointment.pk }})">
+                                    {{ appointment.name }}
+                                </a>
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                <div class="col-xs-12">
+                    <div>
+                        <p>Случайный выбор:</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                {% for land in land_estate_list %}
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 margin-t-5">
+                        {% estate_col land land.appintmentLand %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <!-- End LandEstate -->
+    <!-- Marketing -->
+    {% if partner_2 %}
+        {% partner_horizontal partner_2 media_url %}
+    {% endif %}
+    <!-- End Marketing -->
+    <!-- Partner program -->
+    {% partner_program %}
+    <!-- End partner program -->
+    <!-- Banner -->
+    {% horizontal_banner %}
+    <!-- End Banner -->
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load l10n %}
+{% load estate_tag %}
+{% load marketing_tag %}
+{% load other_tag %}
+
+{% block body %}
+    {% header_page "Партнеры" %}
+    <!-- Bank -->
+    {% if bank_partner_list %}
+        <div class="container content-20 padding-l-r-5">
+            <div class="row">
+                <div class="col-xs-12 group-header">
+                    <div>
+                        <h4 class="partner-group-h4">Банки:</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                {% for partner in bank_partner_list %}
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 margin-t-5">
+                        {% partner_item partner %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <!-- End Bank -->
+
+    <!-- BuildingPartner -->
+    {% if building_partner_list %}
+        <div class="container content-20 padding-l-r-5">
+            <div class="row">
+                <div class="col-xs-12 group-header">
+                    <div>
+                        <h4 class="partner-group-h4">Строительные организации:</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                {% for partner in building_partner_list %}
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 margin-t-5">
+                        {% partner_item partner %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <!-- End BuildingPartner -->
+
+    <!-- OtherPartner -->
+    {% if other_partner_list %}
+        <div class="container content-20 padding-l-r-5">
+            <div class="row">
+                <div class="col-xs-12 group-header">
+                    <div>
+                        <h4 class="partner-group-h4">Прочие партнеры:</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-t-5">
+                {% for partner in other_partner_list %}
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 margin-t-5">
+                        {% partner_item partner %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <!-- End OtherPartner -->
+{% endblock %}

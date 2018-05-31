@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+
+<div class="container padding-l-r-5 content-20">
+    <div class="row-full-width flex-left">
+        <h3 class="article-search-h2">{{ text_message }}</h3>
+        <div class="article-search-block">
+            {% csrf_token %}
+            <input id="articleSearchInput"
+                   type="text"
+                   class="form-control"
+                   placeholder="Код объекта..."
+                   maxlength="40"
+                   required name='article'
+                   onkeypress="Layout.findEstateByArticle(this, event)"
+            />
+        </div>
+    </div>
+</div>
+
+
+

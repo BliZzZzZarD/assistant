@@ -1,0 +1,33 @@
+{% load staticfiles %}
+{% load l10n %}
+{% load estate_tag %}
+{% load thumbnail %}
+
+<div class="row padding-t-5 padding-l-r-5">
+    <div class="col-xs-12 estate-col-info">
+        <div class="float-left">
+            <p>Площадь:</p>
+        </div>
+        <div class="float-right">
+            <p>{{ residence.areaCommon }} м2</p>
+        </div>
+    </div>
+</div>
+<div class="row padding-5">
+    <div class="col-xs-12 estate-col-info">
+        <div class="float-left">
+            <p>Этажность:</p>
+        </div>
+        <div class="float-right">
+            <p>{{ residence.floors }}</p>
+        </div>
+    </div>
+</div>
+{% if residence.price %}
+    {% price residence.cost residence.areaCommon %}
+{% endif %}
+{% if residence.mortgagePrice %}
+    {% mortgage_price residence.cost %}
+{% endif %}
+
+

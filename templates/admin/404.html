@@ -1,0 +1,37 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'Page not found' %}{% endblock %}
+
+{% block content %}
+
+    <h2>{% trans 'Page not found' %}</h2>
+
+    <p>{% trans "We're sorry, but the requested page could not be found." %}</p>
+
+{% endblock %}
+
+{% extends "index.html" %}
+{% load staticfiles %}
+
+{% block body %}
+    <div class="parallax-window" data-parallax="scroll">
+        <div class="parallax-content container">
+            <h1 class="page-caption"> Страница не найдена </h1>
+        </div>
+    </div>
+    <div id="templatemo-contact">
+        <div class="container">
+            <div class="row margin-t-75">
+                <p>{% trans "Мы сожалеем,но запрашиваемая страница не найдена." %}</p>
+                <div class=form-group">
+                    <a href="/" class="btn btn-base">
+                        На главную
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

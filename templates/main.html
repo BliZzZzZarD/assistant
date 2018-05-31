@@ -1,0 +1,299 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block body %}
+    <div class="border-base-t-b-5">
+        <!-- Carousel -->
+        <div id="templatemo-carousel" class="carousel slide border-grey-t-b-2" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                {% for slide in slides %}
+                    <li data-target="#templatemo-carousel"
+                        data-slide-to="{{ forloop.counter0 }}"
+                            {% if forloop.counter0 == 0 %} class="active" {% endif %}>
+                    </li>
+                {% endfor %}
+            </ol>
+            <div class="carousel-inner">
+                {% for slide in slides %}
+                    <div class="item {% if forloop.counter0 == 0 %} active {% endif %}">
+                        <div class="container">
+                            <div class="carousel-caption">
+                                <div class="col-md-12">
+                                    <div class="slide-main-caption">
+                                        <h1>{{ slide.name }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="container relative">
+                    <div class="main-search">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3 col-lg-3">
+                                <div class="form-group flex">
+                                    <select class="form-control selectpicker" id="estate-type-select">
+                                        <option value="">Не выбрано</option>
+                                        <option value="0">Квартиры</option>
+                                        <option value="1">Частные дома</option>
+                                        <option value="2">Коммерческая недвижимость</option>
+                                        <option value="3">Земельные участки</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-7">
+                                <div class="form-group flex-left">
+                                    <input id="cost-from" type="text"
+                                           class="form-control filter-form-input"
+                                           onkeyup="Utils.formatValueInput(this, 2)"
+                                           placeholder="Цена от..." maxlength="40" required
+                                           name='costFrom'/>
+                                    <input id="cost-to" type="text"
+                                           class="margin-l-5 form-control filter-form-input"
+                                           onkeyup="Utils.formatValueInput(this, 2)"
+                                           placeholder="Цена до..." maxlength="40" required
+                                           name='costTo'/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-2">
+                                <div class="full-width">
+                                    <button class="btn btn-primary full-width"
+                                            onclick="Layout.findEstate()">
+                                        Найти
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#templatemo-carousel" data-slide="prev"><span
+                    class="glyphicon glyphicon-chevron-left"></span></a>
+            <a class="right carousel-control" href="#templatemo-carousel" data-slide="next"><span
+                    class="glyphicon glyphicon-chevron-right"></span></a>
+        </div><!-- /#templatemo-carousel -->
+    </div>
+
+    <div class="templatemo-welcome" id="templatemo-welcome">
+        <div class="container">
+            <div class="templatemo-slogan text-center">
+                <p class="txt_slogan"><i>Ваш персональный помощник в сфере недвижимости</i></p>
+            </div>
+            <div class="flex">
+                <div>
+                    <script type="text/javascript">
+                        document.write(VK.Share.button(false, {type: 'button', text: 'Поделиться'}));
+                    </script>
+                </div>
+                <div>
+                    <div id="ok_shareWidget"></div>
+                    <script>
+                        !function (d, id, did, st, title, description, image) {
+                            var js = d.createElement("script");
+                            js.src = "https://connect.ok.ru/connect.js";
+                            js.onload = js.onreadystatechange = function () {
+                                if (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") {
+                                    if (!this.executed) {
+                                        this.executed = true;
+                                        setTimeout(function () {
+                                            OK.CONNECT.insertShareWidget(id, did, st, title, description, image);
+                                        }, 0);
+                                    }
+                                }
+                            };
+                            d.documentElement.appendChild(js);
+                        }(document, "ok_shareWidget", "http://вашпомощник36.рф", '{"sz":20,"st":"rounded","ck":2}', "", "", "");
+                    </script>
+                </div>
+                <div>
+                    <div id="fb-root"></div>
+                    <script>(function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v3.0';
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+
+                    <div class="fb-share-button"
+                         data-href="http://&#x432;&#x430;&#x448;&#x43f;&#x43e;&#x43c;&#x43e;&#x449;&#x43d;&#x438;&#x43a;.&#x440;&#x444;"
+                         data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                        <a target="_blank"
+                           href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fxn--80adtiigfbg3gp.xn--p1ai%2F&amp;src=sdkpreparse"
+                           class="fb-xfbml-parse-ignore">
+                            Поделиться
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- service -->
+    <div class="templatemo-service">
+        <div class="container">
+            <div class="row">
+                {% for service in services %}
+                    <div class="wow
+                     {% if forloop.counter|divisibleby:"2" %} zoomIn
+                     {% elif forloop.counter|divisibleby:"3" %} fadeInRight
+                     {% else %} fadeInLeft
+                     {% endif %}
+                    " data-wow-duration=".3" data-wow-delay=".1s">
+                        <div class="
+                            {% if services|length == 1 %}
+                                col-xs-12 col-sm-12 col-md-12
+                            {% elif services|length == 2 or  services|length == 4 %}
+                                col-xs-12 col-sm-6 col-md-6
+                            {% else %}
+                                col-xs-12 col-sm-6 col-md-4
+                            {% endif %}
+                        ">
+                            <div class="templatemo-service-item">
+                                <h5 class="templatemo-service-item-header">{{ service.name }}</h5>
+                                <p>{{ service.shortDescription }}</p>
+                                <br class="clearfix"/>
+                                <div class="text-center">
+                                    <a href="/service/{{ service.slug }}"
+                                       class="btn btn-primary">Далее</a>
+                                </div>
+                                <br class="clearfix"/>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- End service -->
+
+    <!-- Estate -->
+    <div class="estate-catalog-main">
+        <div class="container">
+            <div class="row">
+                <div class="templatemo-line-header">
+                    <h2><a href="{% url 'show_all_estate' %}" class="link-white">КАТАЛОГ НЕДВИЖИМОСТИ</a></h2>
+                </div>
+            </div>
+            <div class="row margin-t-25">
+                <div class="wow zoomInLeft col-lg-3 col-md-3 col-sm-6" data-wow-duration=".3" data-wow-delay=".1s">
+                    <div class="text-center">
+                        <div class="member-thumb border-all-white-5">
+                            <img src="{% static "images/estates/apartment.jpg" %}" class="img-responsive" alt="Estate"/>
+                        </div>
+                        <div class="team-inner">
+                            <a href="/" class="link-white"><p class="team-inner-header">Квартиры</p></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="wow zoomInLeft col-lg-3 col-md-3 col-sm-6" data-wow-duration=".3" data-wow-delay=".1s">
+                    <div class="text-center">
+                        <div class="member-thumb border-all-white-5">
+                            <img src="{% static "images/estates/residence.jpg" %}" class="img-responsive" alt="Estate"/>
+                        </div>
+                        <div class="team-inner">
+                            <a href="/" class="link-white"><p class="team-inner-header">Частные дома</p></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="wow fadeInRight col-lg-3 col-md-3 col-sm-6 " data-wow-duration=".3" data-wow-delay=".1s">
+                    <div class="text-center">
+                        <div class="member-thumb border-all-white-5">
+                            <img src="{% static "images/estates/commerce.jpg" %}" class="img-responsive" alt="Estate"/>
+                        </div>
+                        <div class="team-inner">
+                            <a href="/" class="link-white"><p class="team-inner-header">Коммерческая недвижимость</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="wow fadeInRight col-lg-3 col-md-3 col-sm-6" data-wow-duration=".3" data-wow-delay=".1s">
+                    <div class="text-center">
+                        <div class="member-thumb border-all-white-5">
+                            <img src="{% static "images/estates/land.jpg" %}" class="img-responsive" alt="Estate"/>
+                        </div>
+                        <div class="team-inner">
+                            <a href="/" class="link-white"><p class="team-inner-header">Земельные участки</p></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.templatemo-page -->
+    <!-- End Estate -->
+
+    <!-- partner -->
+    <div class="templatemo-partners">
+        <div class="container">
+            <div class="row">
+                <div class="text-center">
+                    <p>
+                        <a href="{% url 'show_all_partner' %}">
+                            <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                            Наши партнеры
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <!-- Swiper partner -->
+            <div class="swiper-slider swiper-container">
+                <!-- Swiper Wrapper -->
+                <div class="swiper-wrapper">
+                    {% for partner in partners %}
+                        <div class="swiper-slide">
+                            <a href="{{ partner.url }}">
+                                <img src="
+                                {% if partner.picture %}
+                                    {% thumbnail partner.picture 200x200 crop %}
+                                {% else %}
+                                    {% static "images/other/partner.jpg" %}
+                                {% endif %}
+                                " class="swiper-clients-img" alt="Логотип партнера"/>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div><!-- End Swiper Wrapper -->
+            </div><!-- End Swiper partner -->
+        </div>
+    </div>
+    <!-- End partner -->
+
+    <!-- AdditionalInfo -->
+    {% if add_info %}
+        <div class="templatemo-common-template padding-l-r-5">
+            <div class="container">
+                <div class="row">
+                    <p>{% autoescape off %}{{ add_info.textPage }}{% endautoescape %}</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <!-- End AdditionalInfo -->
+
+    <!-- saying -->
+    {% if saying %}
+        <div class="templatemo-tweets padding-l-r-5">
+            <div class="container">
+                <div class="row" style="margin-top:20px;">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-1">
+                        <i class="txt-50 fa fa-pencil-square-o"></i>
+                    </div>
+                    <div class="col-md-7 tweet_txt">
+                        <span>{{ saying.note }}</span>
+                        <br/>
+                        <span class="twitter_user">{{ saying.signature }}</span>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </div>
+    {% endif %}
+    <!-- saying -->
+
+
+{% endblock %}

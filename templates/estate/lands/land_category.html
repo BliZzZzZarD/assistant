@@ -1,0 +1,117 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load l10n %}
+{% load marketing_tag %}
+{% load estate_tag %}
+{% load other_tag %}
+
+{% block body %}
+    {% header_page "Земельные участки" %}
+    <!-- Helper -->
+    {% article_search %}
+    <!-- End Helper -->
+    <!-- LandEstate -->
+    <div class="container">
+        <div class="row border-top-base padding-t-15">
+            <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
+                <div class="flex-left">
+                    <label for="sort-estate-select">Стоимость:</label>
+                </div>
+            </div>
+            <div class="col-xs-10 col-sm-4 col-md-5 col-lg-5">
+                <div class="form-group flex-left">
+                    <input id="cost-from" type="text" class="form-control filter-form-input"
+                           onkeyup="Utils.formatValueInput(this, 2)"
+                           placeholder="от..." maxlength="40" required name='costFrom'/>
+                    <span class="margin-l-5">-</span>
+                    <input id="cost-to" type="text" class="margin-l-5 form-control filter-form-input"
+                           onkeyup="Utils.formatValueInput(this, 2)"
+                           placeholder="до..." maxlength="40" required name='costTo'/>
+                </div>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
+                <div class="flex-left">
+                    <label for="sort-estate-select">Площадь:</label>
+                </div>
+            </div>
+            <div class="col-xs-10 col-sm-4 col-md-5 col-lg-5">
+                <div class="form-group flex-left">
+                    <input id="area-from" type="text" class="form-control filter-form-input"
+                           onkeyup="Utils.formatValueInput(this, 2)"
+                           placeholder="от..." maxlength="40" required name='areaFrom'/>
+                    <span class="margin-l-5">-</span>
+                    <input id="area-to" type="text" class="margin-l-5 form-control filter-form-input"
+                           onkeyup="Utils.formatValueInput(this, 2)"
+                           placeholder="до..." maxlength="40" required name='areaTo'/>
+                </div>
+            </div>
+        </div>
+        <div class="row border-bottom-base">
+            <div class="col-xs-2 col-md-1 col-lg-1">
+                <div class="flex-left">
+                    <label for="city-select">Населенный пункт:</label>
+                </div>
+            </div>
+            <div class="col-xs-10 col-md-5 col-lg-3">
+                <div class="form-group flex">
+                    <select class="form-control selectpicker" id="city-select">
+                        <option value="">Не выбрано</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-2 col-md-1 col-lg-1">
+                <div class="flex-left">
+                    <label for="appointment-select">Назначение участка:</label>
+                </div>
+            </div>
+            <div class="col-xs-10 col-md-5 col-lg-3">
+                <div class="form-group flex">
+                    <select class="form-control selectpicker" id="appointment-select" title="Не выбрано" multiple>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 padding-b-15">
+                <div class="full-width">
+                    <button class="btn btn-primary full-width" onclick="LayoutLand.trashFilter()">
+                        <i class="fa fa-trash" data-toggle="tooltip" title="Сбросить фильтр"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 padding-b-15">
+                <div class="full-width">
+                    <button class="btn btn-primary full-width" onclick="LayoutLand.findEstate()">
+                        Найти
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-t-25">
+            {% estate_view_sort_tag %}
+            <div class="col-sm-12 col-md-3">
+                <!-- Banner -->
+                {% vertical_banner %}
+                <!-- End Banner -->
+            </div>
+        </div>
+    </div>
+    <!-- End LandEstate -->
+    <!-- Helper -->
+    {% wait_call %}
+    <!-- End Helper -->
+    <!-- Map -->
+    <div class="container margin-t-50 margin-b-50">
+        <div class="row">
+            <div class="estate-map geo-estate-category" id="map-category-estate-canvas"></div>
+        </div>
+    </div>
+    <!-- End Helper -->
+    <!-- Banner -->
+    {% horizontal_banner %}
+    <!-- End Banner -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            LayoutLand.init();
+        });
+    </script>
+{% endblock %}

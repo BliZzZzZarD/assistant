@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+{% load navigation_tag %}
+<head>
+    <title>Ваш помощник</title>
+    <meta name="keywords" content="помощник, ваш помощник, квартиры, дома, коттеджи, земельные участки,
+    коммерческая недвижимость, покупка, подажа, покупка недвижимости, продажа недвижимости, купить кваритру, продать квартиру,
+    купить дом, продать дом, воронеж, воронежская область"/>
+    <meta name="description" content="Ваш персональный помощник в сфере недвижимости. Помощь в покупке и продаже недвижимости"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Ваш помощник" />
+    <meta property="og:type" content="code-lab" />
+    <meta property="og:url" content="http://вашпомощник36.рф/"/>
+    <meta property="og:image" content="http://вашпомощник36.рф/static/images/helper-banner" />
+    <meta property="og:description" content="Ваш персональный помощник в сфере недвижимости. Помощь в покупке и продаже недвижимости" />
+
+    <link href="{% static "vendor/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "vendor/simple-line-icons/simple-line-icons.min.css" %}" rel="stylesheet" type="text/css"/>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "vendor/bootstrap-select/dist/css/bootstrap-select.min.css" %}" rel="stylesheet"
+          type="text/css">
+    <link href="{% static "vendor/bootstrap/css/bootstrap.css" %}" rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/templatemo_style.css" %}" rel='stylesheet' type='text/css'>
+
+    <!-- PAGE LEVEL PLUGIN STYLES -->
+    <link href="{% static "css/animate.css" %}" rel="stylesheet">
+    <link href="{% static "vendor/swiper/css/swiper.min.css" %}" rel="stylesheet" type="text/css"/>
+
+    <!-- GALLERY STYLES -->
+    <link rel='stylesheet' href="{% static "vendor/jgallery/css/jgallery.min.css" %}" type='text/css'/>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href={% static "/images/favicon.ico" %}>
+
+    <!-- CORE PLUGINS -->
+    <script type='text/javascript' src="{% static "vendor/jquery/jquery-3.2.1.min.js" %}"></script>
+    <script src="{% static "vendor/jquery/jquery-migrate.min.js" %}" type="text/javascript"></script>
+    <script src="{% static "vendor/bootstrap/js/bootstrap.min.js" %}" type="text/javascript"></script>
+    <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
+</head>
+
+<body>
+
+<div class="templatemo-top-bar" id="templatemo-top">
+    <div class="container">
+        <div class="subheader">
+            <div class="pull-left">
+                <p class="phone"><i class="fa fa-phone"></i></p>
+            </div>
+            <div id="email" class="pull-right">
+                <p><i class="fa fa-envelope"></i></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="templatemo-top-menu">
+    <div class="container">
+        <!-- Static navbar -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Навигация</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/" class="navbar-brand"><img src="{% static "images/assistant_logo.png" %}"
+                                                          alt="logo"/></a>
+                </div>
+                <div class="navbar-collapse collapse" id="templatemo-nav-bar">
+                    <ul class="nav navbar-nav navbar-right margin-t-30 padding-l-r-5">
+                        <li><a class="nav-a" href="/">ГЛАВНАЯ</a></li>
+                        {% estate_catalog_navigation %}
+                        <li><a class="nav-a" href="{% url 'show_all_service' %}">УСЛУГИ</a></li>
+                        <li><a class="nav-a" href="{% url 'show_all_partner' %}">ПАРТНЕРЫ</a></li>
+                        {% navigation %}
+                        <li><a class="nav-a" href="{% url 'contact' %}">КОНТАКТЫ</a></li>
+                    </ul>
+                </div><!--nav-collapse -->
+            </div><!--container-fluid -->
+        </div><!--navbar -->
+    </div> <!-- container -->
+</div>
+
+{% block body %} {% endblock %}
+
+<div class="templatemo-footer">
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+
+                <div class="footer_container">
+                    <ul class="list-inline">
+                        <li id="vk">
+                            <a href="{{ config.vk }}">
+                                <i class="fa fa-vk btn btn-primary"></i>
+                            </a>
+                        </li>
+                        <li id="fb">
+                            <a href="{{ config.facebook }}">
+                                <i class="fa fa-facebook btn btn-primary"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="height30"></div>
+                    <a class="btn btn-primary" href="#" role="button" id="btn-back-to-top">Вверх</a>
+                    <div class="height30"></div>
+                </div>
+                <div class="footer_bottom_content">
+                    <span id="footer-line">Copyright © 2018 <a href="#"><span class="site txt_base"></span></a></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="develop-by">
+    <p>Создание и поддержка сайта:
+        <a href="http://www.technosoftware.ru">
+            <img src="{% static "images/logo-rain-text-black.png" %}" class="img-develop-by" alt="Rainsoft"/>
+        </a>
+    </p>
+</div>
+
+<!-- PAGE LEVEL PLUGINS -->
+<script src="{% static "vendor/jquery/jquery.wow.min.js" %}" type="text/javascript"></script>
+<script src="{% static "vendor/stickUp/stickUp.min.js" %}" type="text/javascript"></script>
+<script src="{% static "vendor/swiper/js/swiper.jquery.min.js" %}" type="text/javascript"></script>
+<script src="{% static "vendor/jquery/jquery.cookie.js" %}" type="text/javascript"></script>
+<script src="{% static "vendor/jquery/jquery.blockUI.js" %}" type="text/javascript"></script>
+<script src="{% static "vendor/heartcode-canvasloader/heartcode-canvasloader.js" %}" type="text/javascript"></script>
+<script src="{% static "vendor/bootstrap-select/dist/js/bootstrap-select.min.js" %}" type="text/javascript"></script>
+<script src="{% static "vendor/jgallery/js/jgallery.js" %}" type="text/javascript"></script>
+<script src="{% static "vendor/jgallery/js/touchswipe.min.js" %}" type="text/javascript"></script>
+<script src="{% static "vendor/jgallery/js/tinycolor-0.9.16.min.js" %}" type="text/javascript"></script>
+
+<!-- PAGE LEVEL SCRIPTS -->
+<script src="{% static "js/components/wow.min.js" %}" type="text/javascript"></script>
+<script src="{% static "js/components/swiper.min.js" %}" type="text/javascript"></script>
+<script src="{% static "js/components/block-ui.js" %}" type="text/javascript"></script>
+
+<!-- LOWER LEVEL SCRIPTS -->
+<script src="{% static "js/utils.js" %}" type="text/javascript"></script>
+<script src="{% static "js/call_back_form.js" %}" type="text/javascript"></script>
+<script src="{% static "js/layout.js" %}" type="text/javascript"></script>
+<script src="{% static "js/layout_apartment.js" %}" type="text/javascript"></script>
+<script src="{% static "js/layout_residence.js" %}" type="text/javascript"></script>
+<script src="{% static "js/layout_commerce.js" %}" type="text/javascript"></script>
+<script src="{% static "js/layout_land.js" %}" type="text/javascript"></script>
+<script src="{% static "js/layout_estate.js" %}" type="text/javascript"></script>
+<script src="{% static "js/calculation_mortgage.js" %}" type="text/javascript"></script>
+
+</body>
+</html>

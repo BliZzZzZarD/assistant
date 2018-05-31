@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+
+<li class="dropdown">
+    <div class="compoundNavItem">
+        <a class="nav-a" href={% url 'show_all_estate' %}>КАТАЛОГ НЕДВИЖИМОСТИ <b class="caret"></b></a>
+        <a class="nav-a dropdown-toggle" data-toggle="dropdown" href="#"></a>
+        <div class="dropdown-menu dropdown-menu-container">
+            <div class="row-full-width">
+                <div class="padding-t-b-5 estate-catalog">
+                    <table>
+                        <thead>
+                        <tr class="nav-table-header">
+                            <th class="border-r-base">
+                                <a class="sub-category-nav" href="javascript:void(0)" onclick="LayoutApartment.showApartments()">
+                                        <span class="sub-category-head">Квартиры</span>
+                                </a>
+                            </th>
+                            <th class="border-r-base">
+                                <a class="sub-category-nav" href="javascript:void(0)" onclick="LayoutResidence.showResidences()">
+                                    <span
+                                        class="sub-category-head">Частные дома</span>
+                                </a>
+                            </th>
+                            <th class="border-r-base">
+                                <a class="sub-category-nav" href="javascript:void(0)" onclick="LayoutCommerce.showCommerces()">
+                                    <span
+                                        class="sub-category-head">Коммерческая недвижимость</span>
+                                </a>
+                            </th>
+                            <th>
+                                <a class="sub-category-nav" href="javascript:void(0)" onclick="LayoutLand.showLands()">
+                                    <span
+                                        class="sub-category-head">Земельные участки</span>
+                                </a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="nav-table-body">
+                            <th class="border-r-base">
+                                <div class="row">
+                                    <div class="col-xs-12 margin-t-5">
+                                        <a class="sub-category-nav" href="javascript:void(0)"
+                                           onclick="LayoutApartment.showApartmentByRoom(true, null, null)">Комната</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 margin-t-5">
+                                        <a class="sub-category-nav" href="javascript:void(0)"
+                                           onclick="LayoutApartment.showApartmentByRoom(null, 1, null)">1-комнатные</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 margin-t-5">
+                                        <a class="sub-category-nav" href="javascript:void(0)"
+                                           onclick="LayoutApartment.showApartmentByRoom(null, 2, null)">2-комнатные</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 margin-t-5">
+                                        <a class="sub-category-nav" href="javascript:void(0)"
+                                           onclick="LayoutApartment.showApartmentByRoom(null, 3, null)">3-комнатные</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 margin-t-5">
+                                        <a class="sub-category-nav" href="javascript:void(0)"
+                                           onclick="LayoutApartment.showApartmentByRoom(null, 4, null)">4-комнатные</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 margin-t-5">
+                                        <a class="sub-category-nav" href="javascript:void(0)"
+                                           onclick="LayoutApartment.showApartmentByRoom(null, null, true)">5-комнатные(+)</a>
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="border-r-base">
+                                {% for construction in constructions %}
+                                    <div class="row">
+                                        <div class="col-xs-12 margin-t-5">
+                                            <a class="sub-category-nav" href="javascript:void(0)"
+                                               onclick="LayoutResidence.showResidenceByConstruction({{ construction.pk }})">{{ construction.name }}</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </th>
+                            <th class="border-r-base">
+                                {% for appointment in appointments %}
+                                    <div class="row">
+                                        <div class="col-xs-12 margin-t-5">
+                                            <a class="sub-category-nav" href="javascript:void(0)"
+                                               onclick="LayoutCommerce.showCommerceByAppointment({{ appointment.pk }})">{{ appointment.name }}</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </th>
+                            <th>
+                                {% for appointment in land_appointments %}
+                                    <div class="row">
+                                        <div class="col-xs-12 margin-t-5">
+                                            <a class="sub-category-nav" href="javascript:void(0)"
+                                               onclick="LayoutLand.showLandByAppointment({{ appointment.pk }})">{{ appointment.name }}</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+
+

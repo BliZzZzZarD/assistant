@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="rus">
+<meta charset="utf-8">
+{% load staticfiles %}
+
+<div class="row padding-l-r-5 padding-t-5" data-toggle="tooltip" title="Не является публичной офертой">
+    <div class="col-xs-12 estate-col-info">
+        <div class="float-left">
+            <p>Стоиость услуг:</p>
+        </div>
+        <div class="float-right">
+            <p>
+                {% if cost %}
+                    {{ cost }} руб.
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+
+

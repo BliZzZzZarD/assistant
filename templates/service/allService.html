@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+
+{% block body %}
+    <div class="parallax-window" data-parallax="scroll">
+        <div class="parallax-content container">
+            <h1 class="page-caption"> Услуги </h1>
+        </div>
+    </div>
+    <div class="templatemo-service">
+        <div class="container">
+            <div class="row">
+                {% for service in services %}
+                    <div class="wow
+                     {% if forloop.counter|divisibleby:"2" %} zoomIn
+                     {% elif forloop.counter|divisibleby:"3" %} fadeInRight
+                     {% else %} fadeInLeft
+                     {% endif %}
+                     " data-wow-duration=".3" data-wow-delay=".1s">
+                        <div class="
+                            {% if services|length == 1 %}
+                                col-xs-12 col-sm-12 col-md-12
+                            {% elif services|length == 2 or  services|length == 4 %}
+                                col-xs-12 col-sm-6 col-md-6
+                            {% else %}
+                                col-xs-12 col-sm-6 col-md-4
+                            {% endif %}
+                        ">
+                            <div class="templatemo-service-item">
+                                <span class="templatemo-service-item-header">{{ service.name }}</span>
+                                <p>{{ service.shortDescription }}</p>
+                                <br class="clearfix"/>
+                                <div class="text-center">
+                                    <a href="/service/{{ service.slug }}"
+                                       class="btn btn-primary">Далее</a>
+                                </div>
+                                <br class="clearfix"/>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

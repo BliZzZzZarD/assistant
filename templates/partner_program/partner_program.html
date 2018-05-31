@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load estate_tag %}
+{% load marketing_tag %}
+{% load other_tag %}
+{% load l10n %}
+
+{% block body %}
+    {% header_page program.name %}
+    <!-- Program -->
+    <div class="container padding-l-r-5 margin-t-25">
+        <div class="row">
+            <div class="col-xs-3">
+                <div>
+                    <img src="
+                {% if program.partner.picture %}
+                    {% thumbnail program.partner.picture 200x200 crop %}
+                {% else %}
+                    {% static "images/other/partner.jpg" %}
+                {% endif %}
+                    " class="img-responsive full-width" alt="Partner"/>
+                </div>
+            </div>
+            <div class="col-xs-9">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Процентная ставка, % годовых: {{ program.rate }}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Максимальный срок кредитования, лет: {{ program.term }}</h4>
+                    </div>
+                </div>
+                <div class="row partner-description">
+                    <div class="col-xs-12">
+                        <p>{% autoescape off %}{{ program.description }}{% endautoescape %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Program -->
+{% endblock %}
